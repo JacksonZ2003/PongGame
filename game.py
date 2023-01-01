@@ -22,6 +22,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
+                
                 if event.type == pygame.KEYDOWN:
                     if (event.key == pygame.K_UP):
                         p2move_up=True
@@ -58,17 +59,17 @@ class Player:
         screen.blit(self.player,(x,y))
     
     def move(self,p1up, p1down, p2up, p2down, screen): 
-        if (p2up) and (self.y > 0) and (self.up=="up"):
-            self.y-=10
-            screen.blit(self.player, (self.x,self.y))
-        elif (p1up) and (self.y > 0) and (self.up=="w"):
-            self.y-=10
-            screen.blit(self.player, (self.x,self.y))
-        elif (p2down) and (self.y < 500) and (self.down == "down"):
+        if (p1down and not p2down) and (self.y < 500) and (self.down == "s"):
             self.y+=10
             screen.blit(self.player, (self.x,self.y))
-        elif (p1down) and (self.y < 500) and (self.down == "s"):
+        if (p1up and not p2up) and (self.y > 0) and (self.up=="w"):
+            self.y-=10
+            screen.blit(self.player, (self.x,self.y)) 
+        if (p2down and not p1down) and (self.y < 500) and (self.down == "down"):
             self.y+=10
+            screen.blit(self.player, (self.x,self.y))
+        if (p2up and not p1up) and (self.y > 0) and (self.up=="up"):
+            self.y-=10
             screen.blit(self.player, (self.x,self.y))
         else:
             screen.blit(self.player, (self.x,self.y))
