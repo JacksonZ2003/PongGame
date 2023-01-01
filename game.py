@@ -7,7 +7,7 @@ background.fill("Black")
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((600,600))
+        self.screen = pygame.display.set_mode((600,700))
         pygame.display.set_caption("Game")
 
     def runGame(self):
@@ -36,11 +36,13 @@ class Player:
         screen.blit(self.player,(x,y))
     
     def move(self, screen, event): 
-        if event.key == pygame.K_UP:
+        if (event.key == pygame.K_UP) and (self.y > 0):
             self.y-=10
             screen.blit(self.player, (self.x,self.y))
-        elif event.key == pygame.K_DOWN:
+        elif (event.key == pygame.K_DOWN) and (self.y < 500):
             self.y+=10
+            screen.blit(self.player, (self.x,self.y))
+        else:
             screen.blit(self.player, (self.x,self.y))
 
 
