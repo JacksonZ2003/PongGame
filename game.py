@@ -36,10 +36,16 @@ class Player:
         screen.blit(self.player,(x,y))
     
     def move(self, screen, event): 
-        if (event.key == pygame.K_UP) and (self.y > 0):
+        if (event.key == pygame.K_UP) and (self.y > 0) and (self.up=="up"):
             self.y-=10
             screen.blit(self.player, (self.x,self.y))
-        elif (event.key == pygame.K_DOWN) and (self.y < 500):
+        elif (event.key == pygame.K_w) and (self.y > 0) and (self.up=="w"):
+            self.y-=10
+            screen.blit(self.player, (self.x,self.y))
+        elif (event.key == pygame.K_DOWN) and (self.y < 500) and (self.down == "down"):
+            self.y+=10
+            screen.blit(self.player, (self.x,self.y))
+        elif (event.key == pygame.K_s) and (self.y < 500) and (self.down == "s"):
             self.y+=10
             screen.blit(self.player, (self.x,self.y))
         else:
