@@ -24,15 +24,15 @@ class Game:
                     exit()
                 
                 if event.type == pygame.KEYDOWN:
-                    if (event.key == pygame.K_UP):
-                        p2move_up=True
-                    if (event.key == pygame.K_DOWN):
-                        p2move_down = True
                     if (event.key == pygame.K_w):
                         p1move_up=True
                     if (event.key == pygame.K_s):
                         p1move_down = True
-                elif event.type == pygame.KEYUP:
+                    if (event.key == pygame.K_UP):
+                        p2move_up=True
+                    if (event.key == pygame.K_DOWN):
+                        p2move_down = True
+                if event.type == pygame.KEYUP:
                     if (event.key == pygame.K_UP):
                         p2move_up=False
                     if (event.key == pygame.K_DOWN):
@@ -58,21 +58,17 @@ class Player:
         self.player.fill("White")
         screen.blit(self.player,(x,y))
     
-    def move(self,p1up, p1down, p2up, p2down, screen): 
-        if (p1down and not p2down) and (self.y < 500) and (self.down == "s"):
-            self.y+=10
-            screen.blit(self.player, (self.x,self.y))
-        if (p1up and not p2up) and (self.y > 0) and (self.up=="w"):
-            self.y-=10
-            screen.blit(self.player, (self.x,self.y)) 
+    def move(self,p1up, p1down, p2up, p2down, screen):
         if (p2down and not p1down) and (self.y < 500) and (self.down == "down"):
             self.y+=10
-            screen.blit(self.player, (self.x,self.y))
         if (p2up and not p1up) and (self.y > 0) and (self.up=="up"):
             self.y-=10
-            screen.blit(self.player, (self.x,self.y))
-        else:
-            screen.blit(self.player, (self.x,self.y))
+        if (p1down and not p2down) and (self.y < 500) and (self.down == "s"):
+            self.y+=10
+        if (p1up and not p2up) and (self.y > 0) and (self.up=="w"):
+            self.y-=10
+        
+        screen.blit(self.player, (self.x,self.y))
 
 
 if __name__ == "__main__":
