@@ -9,6 +9,7 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((600,700))
         pygame.display.set_caption("Game")
+        
 
     def runGame(self):
         p1move_up = False
@@ -17,6 +18,8 @@ class Game:
         p2move_down = False
         player1 = Player(self.screen,0,250,"w","s")
         player2 = Player(self.screen,590,250,"up","down")
+        clock = pygame.time.Clock()
+        
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -47,6 +50,7 @@ class Game:
                 player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             
             pygame.display.update()
+            clock.tick(130)
 
 class Player:
     def __init__(self, screen, x, y, up, down):
