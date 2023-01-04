@@ -5,12 +5,13 @@ background = pygame.Surface((600,600))
 background.fill("Black")
 
 class Game:
+    #creates the game
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((600,700))
         pygame.display.set_caption("Game")
         
-
+    #runs the game
     def runGame(self):
         p1move_up = False
         p1move_down = False
@@ -53,7 +54,9 @@ class Game:
             clock.tick(60)
 
 class Player:
+    #initializes the player rectangles
     def __init__(self, screen, x, y, up, down):
+        score = 0
         self.x=x
         self.y=y
         self.up=up
@@ -62,6 +65,7 @@ class Player:
         self.player.fill("White")
         screen.blit(self.player,(x,y))
     
+    #moves teh players using controls
     def move(self,p1up, p1down, p2up, p2down, screen):
         if (p2down) and (self.y < 500) and (self.down == "down"):
             self.y+=10
@@ -74,6 +78,10 @@ class Player:
         
         screen.blit(self.player, (self.x,self.y))
 
+class Ball:
+    def __init__(self):
+        x=0
+        y=0
 
 if __name__ == "__main__":
     game = Game()
