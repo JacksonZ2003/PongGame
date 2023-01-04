@@ -45,12 +45,12 @@ class Game:
                     if (event.key == pygame.K_s):
                         p1move_down = False
                 
-                self.screen.blit(background,(0,0))
-                player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
-                player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
+            self.screen.blit(background,(0,0))
+            player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
+            player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             
             pygame.display.update()
-            clock.tick(130)
+            clock.tick(60)
 
 class Player:
     def __init__(self, screen, x, y, up, down):
@@ -63,13 +63,13 @@ class Player:
         screen.blit(self.player,(x,y))
     
     def move(self,p1up, p1down, p2up, p2down, screen):
-        if (p2down and not p1down) and (self.y < 500) and (self.down == "down"):
+        if (p2down) and (self.y < 500) and (self.down == "down"):
             self.y+=10
-        if (p2up and not p1up) and (self.y > 0) and (self.up=="up"):
+        if (p2up) and (self.y > 0) and (self.up=="up"):
             self.y-=10
-        if (p1down and not p2down) and (self.y < 500) and (self.down == "s"):
+        if (p1down) and (self.y < 500) and (self.down == "s"):
             self.y+=10
-        if (p1up and not p2up) and (self.y > 0) and (self.up=="w"):
+        if (p1up) and (self.y > 0) and (self.up=="w"):
             self.y-=10
         
         screen.blit(self.player, (self.x,self.y))
