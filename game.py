@@ -1,9 +1,6 @@
 import pygame
 import sys 
 
-background = pygame.Surface((600,600))
-background.fill("Black")
-
 class Game:
     #creates the game
     def __init__(self):
@@ -46,7 +43,7 @@ class Game:
                     if (event.key == pygame.K_s):
                         p1move_down = False
                 
-            self.screen.blit(background,(0,0))
+            self.screen.fill((0,0,0))
             player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             
@@ -65,7 +62,7 @@ class Player:
         self.player.fill("White")
         screen.blit(self.player,(x,y))
     
-    #moves teh players using controls
+    #moves the players using controls
     def move(self,p1up, p1down, p2up, p2down, screen):
         if (p2down) and (self.y < 500) and (self.down == "down"):
             self.y+=10
