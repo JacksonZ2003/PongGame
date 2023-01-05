@@ -14,6 +14,7 @@ class Game:
         p1move_down = False
         p2move_up = False
         p2move_down = False
+        ball = Ball(self.screen)
         player1 = Player(self.screen,0,250,"w","s")
         player2 = Player(self.screen,590,250,"up","down")
         clock = pygame.time.Clock()
@@ -46,6 +47,7 @@ class Game:
             self.screen.fill((0,0,0))
             player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
+            ball.moveBall(self.screen)
             
             pygame.display.update()
             clock.tick(60)
@@ -58,27 +60,33 @@ class Player:
         self.y=y
         self.up=up
         self.down=down
-        self.player = pygame.Surface((10,100))
-        self.player.fill("White")
-        screen.blit(self.player,(x,y))
+        self.player = pygame.Rect(x,y,10,100)
+        pygame.draw.rect(screen, (255,255,255), self.player)
     
     #moves the players using controls
     def move(self,p1up, p1down, p2up, p2down, screen):
         if (p2down) and (self.y < 500) and (self.down == "down"):
-            self.y+=10
+            self.player.y+=10
         if (p2up) and (self.y > 0) and (self.up=="up"):
-            self.y-=10
+            self.player.y-=10
         if (p1down) and (self.y < 500) and (self.down == "s"):
-            self.y+=10
+            self.player.y+=10
         if (p1up) and (self.y > 0) and (self.up=="w"):
-            self.y-=10
+            self.player.y-=10
         
-        screen.blit(self.player, (self.x,self.y))
+        pygame.draw.rect(screen, (255,255,255), self.player)
 
 class Ball:
-    def __init__(self):
-        x=0
-        y=0
+
+    def __init__(self, screen):
+        self.x=290
+        self.y=290
+        self.ball = pygame.Rect(self.x,self.y,10,10)
+        pygame.draw.rect(screen, (255,255,255), self.ball)
+    
+    def moveBall(self, screen):
+        self.ball.x+=10
+        pygame.draw.rect(screen,(255,255,255), self.ball)
 
 if __name__ == "__main__":
     game = Game()
