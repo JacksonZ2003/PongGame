@@ -90,15 +90,20 @@ class Ball:
     def moveBall(self, screen):
         self.ball.x+=self.xvelocity
         self.ball.y+=self.yvelocity
-        if (self.ball.x==0 and self.ball.y==0) or (self.ball.x==600 and self.ball.y==600) or (self.ball.x==0 and self.ball.y==600) or (self.ball.x==600 and self.ball.y==0):
-            self.yvelocity=random.choice([0,self.yvelocity*-1])
+        if (self.ball.x==0 and self.ball.y==0) or (self.ball.x==590 and self.ball.y==590) or (self.ball.x==0 and self.ball.y==590) or (self.ball.x==590 and self.ball.y==0):
+            if (self.yvelocity!=0):
+                self.yvelocity=random.choice([0,self.yvelocity*-1])
+            elif (self.ball.y==590):
+                self.yvelocity=random.choice([0,-5])
+            else:
+                self.yvelocity=random.choice([0,5])
             self.xvelocity*=-1
-        elif (self.ball.y == 600 or self.ball.y == 0): 
+        elif (self.ball.y == 590 or self.ball.y == 0): 
             self.yvelocity*=-1
-        elif (self.ball.x == 0 or self.ball.x == 600) and (self.yvelocity==0):
+        elif (self.ball.x == 0 or self.ball.x == 590) and (self.yvelocity==0):
             self.yvelocity=random.choice([5,-5])
             self.xvelocity*=-1
-        elif (self.ball.x == 0 or self.ball.x == 600):
+        elif (self.ball.x == 0 or self.ball.x == 590):
             self.yvelocity=random.choice([0,self.yvelocity*-1])
             self.xvelocity*=-1
         pygame.draw.rect(screen,(255,255,255), self.ball)
