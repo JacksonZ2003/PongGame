@@ -1,5 +1,6 @@
 import pygame
 import sys 
+import random
 
 class Game:
     #creates the game
@@ -65,18 +66,20 @@ class Player:
     
     #moves the players using controls
     def move(self,p1up, p1down, p2up, p2down, screen):
-        if (p2down) and (self.y < 500) and (self.down == "down"):
+        if (p2down) and (self.player.y < 500) and (self.down == "down"):
             self.player.y+=10
-        if (p2up) and (self.y > 0) and (self.up=="up"):
+        elif (p2up) and (self.player.y > 0) and (self.up=="up"):
             self.player.y-=10
-        if (p1down) and (self.y < 500) and (self.down == "s"):
+        elif (p1down) and (self.player.y < 500) and (self.down == "s"):
             self.player.y+=10
-        if (p1up) and (self.y > 0) and (self.up=="w"):
+        elif (p1up) and (self.player.y > 0) and (self.up=="w"):
             self.player.y-=10
         
         pygame.draw.rect(screen, (255,255,255), self.player)
 
 class Ball:
+    yvelocity = random.choice([5, 0, -5])
+    xvelocity = random.choice([5,-5])
 
     def __init__(self, screen):
         self.x=290
@@ -85,7 +88,15 @@ class Ball:
         pygame.draw.rect(screen, (255,255,255), self.ball)
     
     def moveBall(self, screen):
-        self.ball.x+=10
+        self.ball.x+=self.xvelocity
+        self.ball.y+=self.yvelocity
+        if (self.ball.y == 600 and self.ball.y == 0) and (self.yvelocity!=0): 
+            self.yvelocity*=-1
+        elif (self.ball.y == 600 and self.ball.y == 0) and (self.yvelocity==0): 
+            self.yvelocity=random.choice([5,-5])
+        elif self.ball.x == 0 or self.ball.x == 600:
+            self.xvelocity*=-1
+        
         pygame.draw.rect(screen,(255,255,255), self.ball)
 
 if __name__ == "__main__":
