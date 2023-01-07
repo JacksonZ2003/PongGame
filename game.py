@@ -56,7 +56,6 @@ class Game:
 class Player:
     #initializes the player rectangles
     def __init__(self, screen, x, y, up, down):
-        score = 0
         self.x=x
         self.y=y
         self.up=up
@@ -78,6 +77,11 @@ class Player:
         pygame.draw.rect(screen, (255,255,255), self.player)
 
 class Ball:
+    pygame.font.init()
+    pygame.font.get_init()
+    font=pygame.font.SysFont('freesanbold.ttf', 40)
+    p1score=0
+    p2score=0
     yvelocity = random.choice([5, 0, -5])
     xvelocity = random.choice([5,-5])
 
@@ -106,6 +110,25 @@ class Ball:
             self.xvelocity*=-1
         elif (self.ball.y == 490 or self.ball.y == 0): 
             self.yvelocity*=-1
+        elif (self.ball.x < 0):
+            self.p2score+=1
+            self.ball.x=self.x
+            self.ball.y=self.y
+            self.yvelocity = random.choice([5, 0, -5])
+            self.xvelocity = random.choice([5,-5])
+        elif (self.ball.x > 600):
+            self.p1score+=1
+            self.ball.x=self.x
+            self.ball.y=self.y
+            self.yvelocity = random.choice([5, 0, -5])
+            self.xvelocity = random.choice([5,-5])
+        
+        text1 = self.font.render(f'Score: {self.p1score}', True, (255, 255, 255))
+        text2 = self.font.render(f'Score: {self.p2score}', True, (255, 255, 255))
+        textRect1 = text1.get_rect(center= (70,570))
+        textRect2 = text2.get_rect(center= (530,570))
+        screen.blit(text1,textRect1)
+        screen.blit(text2,textRect2)
         pygame.draw.rect(screen,(255,255,255), self.ball)
 
 if __name__ == "__main__":
