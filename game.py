@@ -48,7 +48,7 @@ class Game:
             self.screen.fill((0,0,0))
             player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
-            ball.moveBall(self.screen, player1, player2)
+            ball.moveBall(self.screen, player1.player, player2.player)
             
             pygame.display.update()
             clock.tick(60)
@@ -90,7 +90,13 @@ class Ball:
     def moveBall(self, screen, p1, p2):
         self.ball.x+=self.xvelocity
         self.ball.y+=self.yvelocity
-        if (self.ball.x==0 and self.ball.y==0) or (self.ball.x==590 and self.ball.y==490) or (self.ball.x==0 and self.ball.y==590) or (self.ball.x==590 and self.ball.y==0):
+        if (pygame.Rect.colliderect(p1,self.ball) or pygame.Rect.colliderect(p2,self.ball) and (self.yvelocity==0)):
+            self.yvelocity=random.choice([5,0,-5])
+            self.xvelocity*=-1
+        elif (pygame.Rect.colliderect(p1,self.ball) or pygame.Rect.colliderect(p2,self.ball)):
+            self.yvelocity=random.choice([0,self.yvelocity*-1])
+            self.xvelocity*=-1
+        elif (self.ball.x==0 and self.ball.y==0) or (self.ball.x==590 and self.ball.y==490) or (self.ball.x==0 and self.ball.y==590) or (self.ball.x==590 and self.ball.y==0):
             if (self.yvelocity!=0):
                 self.yvelocity=random.choice([0,self.yvelocity*-1])
             elif (self.ball.y==490):
@@ -100,12 +106,6 @@ class Ball:
             self.xvelocity*=-1
         elif (self.ball.y == 490 or self.ball.y == 0): 
             self.yvelocity*=-1
-        elif (self.ball.x == 0 or self.ball.x == 600) and (self.yvelocity==0):
-            self.yvelocity=random.choice([5,0,-5])
-            self.xvelocity*=-1
-        elif (self.ball.x == 0 or self.ball.x == 600):
-            self.yvelocity=random.choice([0,self.yvelocity*-1])
-            self.xvelocity*=-1
         pygame.draw.rect(screen,(255,255,255), self.ball)
 
 if __name__ == "__main__":
