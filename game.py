@@ -24,7 +24,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 
                 if event.type == pygame.KEYDOWN:
                     if (event.key == pygame.K_w):
@@ -48,7 +48,7 @@ class Game:
             self.screen.fill((0,0,0))
             player1.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
             player2.move(p1move_up, p1move_down, p2move_up, p2move_down, self.screen)
-            ball.moveBall(self.screen)
+            ball.moveBall(self.screen, player1, player2)
             
             pygame.display.update()
             clock.tick(60)
@@ -82,15 +82,15 @@ class Ball:
     xvelocity = random.choice([5,-5])
 
     def __init__(self, screen):
-        self.x=290
-        self.y=290
+        self.x=295
+        self.y=245
         self.ball = pygame.Rect(self.x,self.y,10,10)
         pygame.draw.rect(screen, (255,255,255), self.ball)
     
-    def moveBall(self, screen):
+    def moveBall(self, screen, p1, p2):
         self.ball.x+=self.xvelocity
         self.ball.y+=self.yvelocity
-        if (self.ball.x==0 and self.ball.y==0) or (self.ball.x==490 and self.ball.y==490) or (self.ball.x==0 and self.ball.y==490) or (self.ball.x==490 and self.ball.y==0):
+        if (self.ball.x==0 and self.ball.y==0) or (self.ball.x==590 and self.ball.y==490) or (self.ball.x==0 and self.ball.y==590) or (self.ball.x==590 and self.ball.y==0):
             if (self.yvelocity!=0):
                 self.yvelocity=random.choice([0,self.yvelocity*-1])
             elif (self.ball.y==490):
